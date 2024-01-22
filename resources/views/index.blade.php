@@ -30,10 +30,13 @@
                 <div class="row">
                     <div class="col-2">
                         <div class="form-group">
+                            <label for="my-select" class="d-none"></label>
                             <select id="my-select" class="form-control" name="tahun">
                                 <option value="">Pilih Tahun</option>
-                                <option value="2021" {{ isset($tahun) && $tahun == '2021' ? 'selected' : '' }}>2021</option>
-                                <option value="2022" {{ isset($tahun) && $tahun == '2022' ? 'selected' : '' }}>2022</option>
+                                <option value="2021" {{ isset($tahun) && $tahun == '2021' ? 'selected' : '' }}>2021
+                                </option>
+                                <option value="2022" {{ isset($tahun) && $tahun == '2022' ? 'selected' : '' }}>2022
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -83,7 +86,19 @@
                         <tbody>
                         @foreach($data as $key => $menu)
                             <tr>
-                                <td class="table-secondary" colspan="14"><b>{{ ucfirst($key) }}</b></td>
+                                <td class="table-secondary"><b>{{ ucfirst($key) }}</b></td>
+                                @foreach($menuTotalKategori[$key] as $menuKategori)
+                                    <td class="table-secondary" style="text-align: right;">
+                                        <b>
+                                            {{ $menuKategori != null ? number_format($menuKategori) : '' }}
+                                        </b>
+                                    </td>
+                                @endforeach
+                                <td class="table-secondary" style="text-align: right;">
+                                    <b>
+                                        {{ number_format(array_sum($menuTotalKategori[$key])) }}
+                                    </b>
+                                </td>
                             </tr>
                             @foreach($menu as $namaMenu => $totalMenu)
                                 <tr>
